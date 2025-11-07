@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4f46e5">
+    <title>Registro Asistencias Dual</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Registro de Asistencias</h1>
+            <div class="stats">
+                <span class="stat">Estudiantes: <strong id="studentCount">0</strong></span>
+                <span class="stat">Visitantes: <strong id="visitorCount">0</strong></span>
+                <span class="stat">Total Hoy: <strong id="todayCount">0</strong></span>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="qr">Escanear QR</button>
+            <button class="tab-btn" data-tab="manual">Agregar Manual</button>
+            <button class="tab-btn" data-tab="list">Asistencias</button>
+        </div>
+
+        <!-- QR Section -->
+        <section id="qr-tab" class="tab-content active">
+            <div class="qr-container">
+                <video id="video" autoplay></video>
+                <canvas id="canvas" hidden></canvas>
+                <div id="qr-message" class="message">Apunta la camara al codigo QR</div>
+            </div>
+            <button id="start-camera" class="btn btn-primary">Iniciar Camara</button>
+        </section>
+
+        <!-- Manual Section -->
+        <section id="manual-tab" class="tab-content">
+            <div class="person-type-selector">
+                <label>Tipo de persona:</label>
+                <label><input type="radio" name="personType" value="estudiante" checked> Estudiante</label>
+                <label><input type="radio" name="personType" value="visitante"> Visitante</label>
+            </div>
+
+            <!-- Formulario Estudiante -->
+            <form id="student-form" class="form person-form active">
+                <div class="form-group">
+                    <label for="studentCode">Codigo de Estudiante</label>
+                    <input type="text" id="studentCode" required placeholder="Ej: EST001">
+                    <small>Al ingresar el codigo, se autocompletaran los datos</small>
+                </div>
+                <div id="student-data" class="student-preview hidden"></div>
+                <button type="submit" class="btn btn-success">Registrar Asistencia</button>
+            </form>
+
+            <!-- Formulario Visitante -->
+            <form id="visitor-form" class="form person-form">
+                <div class="form-group">
+                    <label for="visitorNombre">Nombre completo *</label>
+                    <input type="text" id="visitorNombre" required placeholder="Ej: María González">
+                </div>
+                <div class="form-group">
+                    <label for="visitorDni">DNI *</label>
+                    <input type="text" id="visitorDni" required placeholder="Ej: 12345678Z">
+                </div>
+                <div class="form-group">
+                    <label for="visitorCorreo">Correo electrónico</label>
+                    <input type="email" id="visitorCorreo" placeholder="opcional@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label for="visitorMotivo">Motivo de visita</label>
+                    <input type="text" id="visitorMotivo" placeholder="Ej: Conferencia, Taller">
+                </div>
+                <button type="submit" class="btn btn-success">Registrar Visitante</button>
+            </form>
+        </section>
+
+        <!-- List Section -->
+        <section id="list-tab" class="tab-content">
+            <div class="controls">
+                <input type="date" id="filter-date" value="">
+                <select id="filter-type">
+                    <option value="">Todos</option>
+                    <option value="estudiante">Solo Estudiantes</option>
+                    <option value="visitante">Solo Visitantes</option>
+                </select>
+                <button id="export-btn" class="btn btn-secondary">Exportar Excel</button>
+                <button id="clear-btn" class="btn btn-danger">Limpiar Todo</button>
+            </div>
+            <div id="attendance-list" class="list-container"></div>
+        </section>
+    </div>
+
+    <!-- Modal para Visitante Rápido -->
+    <div id="quick-visitor-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Registrar Visitante</h3>
+            <p>El código QR escaneado no pertenece a un estudiante registrado.</p>
+            <form id="quick-visitor-form">
+                <div class="form-group">
+                    <label>QR Escaneado:</label>
+                    <input type="text" id="quickQrcode" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Nombre completo *</label>
+                    <input type="text" id="quickNombre" required>
+                </div>
+                <div class="form-group">
+                    <label>DNI *</label>
+                    <input type="text" id="quickDni" required>
+                </div>
+                <div class="form-group">
+                    <label>Motivo</label>
+                    <input type="text" id="quickMotivo">
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="closeQuickModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

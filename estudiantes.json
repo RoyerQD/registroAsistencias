@@ -1,0 +1,37 @@
+[
+  {
+    "codigo": "EST001",
+    "nombre": "Ana María",
+    "apellidos": "López García",
+    "dni": "78451245B",
+    "correo": "ana.lopez@universidad.edu"
+  },
+  {
+    "codigo": "EST002",
+    "nombre": "Carlos Andrés",
+    "apellidos": "Martínez Rodríguez",
+    "dni": "96587412C",
+    "correo": "carlos.martinez@universidad.edu"
+  },
+  {
+    "codigo": "EST003",
+    "nombre": "María Fernanda",
+    "apellidos": "Torres Jiménez",
+    "dni": "74125896D",
+    "correo": "maria.torres@universidad.edu"
+  },
+  {
+    "codigo": "EST004",
+    "nombre": "José Antonio",
+    "apellidos": "Ramírez Sánchez",
+    "dni": "85236917E",
+    "correo": "jose.ramirez@universidad.edu"
+  },
+  {
+    "codigo": "EST005",
+    "nombre": "Lucía Gabriela",
+    "apellidos": "Castro Vega",
+    "dni": "63985214F",
+    "correo": "lucia.castro@universidad.edu"
+  }
+]
